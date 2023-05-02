@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ani.ems.dto.LoginDto;
 import com.ani.ems.dto.RegisterDto;
 import com.ani.ems.service.LoginService;
 import com.ani.ems.util.AppResponse;
@@ -30,6 +31,17 @@ public class LoginController {
                 .sts("success")
                 .msg("registration done successfully.")
                 .bd(registerUser)
+                .build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PostMapping(value = "/signin",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AppResponse<String>> loginUser(@RequestBody LoginDto dto) {
+        String loginUser = loginService.loginUser(dto);
+        AppResponse<String> response = AppResponse.<String>builder()
+                .sts("success")
+                .msg("user login as...")
+                .bd(loginUser)
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

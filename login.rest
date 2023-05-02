@@ -1,19 +1,19 @@
-### 
+
 POST http://localhost:8080/signup/ HTTP/1.1 
 content-type: application/json
 
 { 
-    "email": "Sujit jagdale",
+    "email": "daya@gmail.com",
     "password":"sujit1234", 
     "gender" :"male",
-    "role":"Admin"
+    "role":"User"
 }
 
 ###
-POST http://localhost:8080/login/ HTTP/1.1 
+POST http://localhost:8080/signin/ HTTP/1.1 
 content-type: application/json
 
 { 
-    "email": "Sujit jagdale",
-    "password":"sujit1234", 
+    "email": "daya@gmail.com",
+    "password":"sujit1234"
 }
