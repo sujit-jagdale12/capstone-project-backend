@@ -42,7 +42,7 @@ public class LoginController {
                 .msg("user login as...")
                 .bd(loginUser)
                 .build();
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PostMapping(value = "/login/forgotpass", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -53,7 +53,7 @@ public class LoginController {
                 .msg("user login as...")
                 .bd(pass)
                 .build();
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
 }
