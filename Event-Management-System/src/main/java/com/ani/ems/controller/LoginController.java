@@ -1,5 +1,7 @@
 package com.ani.ems.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ani.ems.dto.ForgotpassDto;
+import com.ani.ems.dto.LoginDto;
 import com.ani.ems.dto.RegisterDto;
 import com.ani.ems.service.LoginService;
 import com.ani.ems.util.AppResponse;
@@ -24,7 +28,7 @@ public class LoginController {
     private final LoginService loginService;
 
     @PostMapping(value = "/signup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AppResponse<Integer>> signUpUser(@RequestBody RegisterDto dto) {
+    public ResponseEntity<AppResponse<Integer>> signUpUser(@Valid @RequestBody RegisterDto dto) {
         Integer registerUser = loginService.registerUser(dto);
         AppResponse<Integer> response = AppResponse.<Integer>builder()
                 .sts("success")
@@ -35,7 +39,7 @@ public class LoginController {
     }
 
     @PostMapping(value = "/signin", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AppResponse<String>> loginUser(@RequestBody RegisterDto dto) {
+    public ResponseEntity<AppResponse<String>> loginUser(@Valid @RequestBody LoginDto dto) {
         String loginUser = loginService.loginUser(dto);
         AppResponse<String> response = AppResponse.<String>builder()
                 .sts("success")
@@ -46,14 +50,13 @@ public class LoginController {
     }
 
     @PostMapping(value = "/login/forgotpass", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AppResponse<String>> forgotPassUser(@RequestBody RegisterDto dto) {
+    public ResponseEntity<AppResponse<String>> forgotPassUser(@Valid @RequestBody ForgotpassDto dto) {
         String pass = loginService.forgotpass(dto);
         AppResponse<String> response = AppResponse.<String>builder()
                 .sts("send")
-                .msg("user login as...")
+                .msg("email sending...")
                 .bd(pass)
                 .build();
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
-
 }

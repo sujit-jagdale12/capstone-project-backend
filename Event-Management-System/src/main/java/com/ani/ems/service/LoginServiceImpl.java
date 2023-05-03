@@ -1,11 +1,16 @@
 package com.ani.ems.service;
 
-import java.util.List;
+import java.util.Optional;
 
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import com.ani.ems.domain.User;
+import com.ani.ems.dto.ForgotpassDto;
+import com.ani.ems.dto.LoginDto;
 import com.ani.ems.dto.RegisterDto;
+import com.ani.ems.exception.DuplicateEmailFoundException;
+import com.ani.ems.exception.UserNotFoundException;
 import com.ani.ems.repository.UserRepository;
 import com.ani.ems.util.DynamicMapper;
 
@@ -19,35 +24,31 @@ public class LoginServiceImpl implements LoginService {
     private final DynamicMapper dynamicMapper;
 
     @Override
-    public Integer registerUser(RegisterDto dto) {
+    public Integer registerUser(RegisterDto dto) throws DuplicateEmailFoundException {
         User user = dynamicMapper.convertor(dto, new User());
+        boolean isPresent = userRepository.existsByEmail(user.getEmail());
+        if (isPresent) {
+            throw new DuplicateEmailFoundException("Email already used.");
+        }
         userRepository.save(user);
         return 1;
     }
 
     @Override
-    public String loginUser(RegisterDto dto) {
-        User user = dynamicMapper.convertor(dto, new User());
-        List<User> listUsers = userRepository.findAll();
-        
-        for (User user1 : listUsers) {
-            if (user1.getEmail().equals(user.getEmail()) && user1.getPassword().equals(user.getPassword())) {
-                return user1.getRole();
-            }
-        }
-        return "User Not Found";
+    public String loginUser(LoginDto dto) {
+        Optional<User> op = userRepository.findByEmailAndPassword(dto.getEmail(), dto.getPassword());
+
+        User user = op.orElseThrow(() -> new UserNotFoundException("Email/Password is not valid"));
+
+        return user.getRole();
     }
 
     @Override
-    public String forgotpass(RegisterDto dto) {
-        User user = dynamicMapper.convertor(dto, new User());
-        List<User> listUsers = userRepository.findAll();
-        for (User user1 : listUsers) {
-            if (user1.getEmail().equals(user.getEmail())) {
-                return "Reset link send";
-            }
-        }
-        return "Invalid Email";
+    public String forgotpass(ForgotpassDto dto) {
+        Optional<User> op = userRepository.findByEmail(dto.getEmail());
+        op.orElseThrow(() -> new UserNotFoundException("Email Not Found"));
+
+        return "Reset link send to email";
     }
 
 }

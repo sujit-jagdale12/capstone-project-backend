@@ -3,7 +3,7 @@ POST http://localhost:8080/signup/ HTTP/1.1
 content-type: application/json
 
 { 
-    "email": "daya@gmail.com",
+    "email": "sujit@gmail.com",
     "password":"sujit1234", 
     "gender" :"male",
     "role":"User"
@@ -14,7 +14,7 @@ POST http://localhost:8080/signin/ HTTP/1.1
 content-type: application/json
 
 { 
-    "email": "daya@gmail.com",
+    "email": "sujit@gmail.com",
     "password":"sujit1234"
 }
 
@@ -23,5 +23,5 @@ POST http://localhost:8080/login/forgotpass/ HTTP/1.1
 content-type: application/json
 
 { 
-    "email": "daya@gmail.com"
+    "email": "sujit@gmail.com"
 }

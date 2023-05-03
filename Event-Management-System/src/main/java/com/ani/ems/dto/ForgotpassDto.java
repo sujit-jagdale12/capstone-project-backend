@@ -10,19 +10,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterDto {
-    @NotNull(message = "Gender should not be null")
-    private String gender;
+public class ForgotpassDto {
 
     @NotBlank(message = "Email is mandatory")
     @NotNull(message = "Email should not be null")
     private String email;
 
-    @NotNull(message = "Password should not be null")
-    @NotBlank(message = "Password is mandatory")
-    private String password;
-
-    @NotNull(message = "Role should not be null")
-    @NotBlank(message = "Role is mandatory")
-    private String role;
 }
