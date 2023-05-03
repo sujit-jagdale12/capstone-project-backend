@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ani.ems.dto.LoginDto;
 import com.ani.ems.dto.RegisterDto;
 import com.ani.ems.service.LoginService;
 import com.ani.ems.util.AppResponse;
@@ -24,7 +23,7 @@ public class LoginController {
 
     private final LoginService loginService;
 
-    @PostMapping(value = "/signup",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/signup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AppResponse<Integer>> signUpUser(@RequestBody RegisterDto dto) {
         Integer registerUser = loginService.registerUser(dto);
         AppResponse<Integer> response = AppResponse.<Integer>builder()
@@ -35,8 +34,8 @@ public class LoginController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @PostMapping(value = "/signin",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AppResponse<String>> loginUser(@RequestBody LoginDto dto) {
+    @PostMapping(value = "/signin", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AppResponse<String>> loginUser(@RequestBody RegisterDto dto) {
         String loginUser = loginService.loginUser(dto);
         AppResponse<String> response = AppResponse.<String>builder()
                 .sts("success")
@@ -45,5 +44,16 @@ public class LoginController {
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
-   
+
+    @PostMapping(value = "/login/forgotpass", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AppResponse<String>> forgotPassUser(@RequestBody RegisterDto dto) {
+        String pass = loginService.forgotpass(dto);
+        AppResponse<String> response = AppResponse.<String>builder()
+                .sts("send")
+                .msg("user login as...")
+                .bd(pass)
+                .build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
 }

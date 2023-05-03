@@ -17,3 +17,11 @@ content-type: application/json
     "email": "daya@gmail.com",
     "password":"sujit1234"
 }
+
+###
+POST http://localhost:8080/login/forgotpass/ HTTP/1.1 
+content-type: application/json
+
+{ 
+    "email": "daya@gmail.com"
+}
