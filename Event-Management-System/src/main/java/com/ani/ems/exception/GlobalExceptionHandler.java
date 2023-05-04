@@ -60,4 +60,12 @@ public class GlobalExceptionHandler {
         errors.put("msg", ex.getMessage());
         return errors;
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NoEventFoundException.class)
+    public Map<String, String> handleEventExceptions(RuntimeException ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("msg", ex.getMessage());
+        return errors;
+    }
 }
