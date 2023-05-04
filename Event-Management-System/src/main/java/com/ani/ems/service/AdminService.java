@@ -15,5 +15,5 @@ public interface AdminService {
 
     Integer upateEvent(UpdateEventDto dto);
 
-    NewEventDto getEventById(Long id);
+    NewEventDto getEvent(Long id);
 }

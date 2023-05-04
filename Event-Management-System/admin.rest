@@ -1,3 +1,4 @@
+### Create New Event
 POST http://localhost:8080/admin/newevent HTTP/1.1 
 Content-Type: application/json
 
@@ -10,20 +11,19 @@ Content-Type: application/json
     "time":"9:00AM"
 }
 
-###
-
+### Get All Craeted Events
 GET http://localhost:8080/admin/events 
 
-###
 
+### Get Event By Passing ID
 GET http://localhost:8080/admin/events/1
 
-###
 
-DELETE http://localhost:8080/admin/events/2
+### Delete Event By ID
+DELETE http://localhost:8080/admin/events/4
 
-###
 
+### Update Event 
 PUT http://localhost:8080/admin/updateevent HTTP/1.1 
 Content-Type: application/json
 
@@ -31,7 +31,7 @@ Content-Type: application/json
     "id":1,
     "title": "Holi Party",
     "description":"klwdjhfdhkhjkfcbhgeddsdsdfcdsc", 
-    "startdate" :"2022-11-01",
+    "startdate" :"2023-11-01",
     "enddate":"2023-11-04",
     "location":"Pune",
     "time":"10:00AM"

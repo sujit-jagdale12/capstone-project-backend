@@ -44,30 +44,27 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Integer deleteEvent(Long id) {
-        Optional<Event> findById = adminRepository.findById(id);
-        findById.orElseThrow(() -> new NoEventFoundException("No Event found for " + id + " ID"));
-
+        isEventPresent(id);
         adminRepository.deleteById(id);
         return 1;
     }
 
     @Override
     public Integer upateEvent(UpdateEventDto dto) {
-        Long id = dto.getId();
-        Optional<Event> eventByID = adminRepository.findById(id);
-        eventByID.orElseThrow(() -> new NoEventFoundException("No Event found for " + id + " ID"));
-
+        isEventPresent(dto.getId());
         adminRepository.save(dynamicMapper.convertor(dto, new Event()));
         return 1;
     }
 
     @Override
-    public NewEventDto getEventById(Long id) {
-        Optional<Event> eventByID = adminRepository.findById(id);
-        eventByID.orElseThrow(() -> new NoEventFoundException("No Event found for " + id + " ID"));
-
-        return new NewEventDto();
+    public NewEventDto getEvent(Long id) {
+        isEventPresent(id);
+        Event event = adminRepository.getReferenceById(id);
+        return dynamicMapper.convertor(event, new NewEventDto());
     }
 
+    private void isEventPresent(Long id) {
+        adminRepository.findById(id).orElseThrow(() -> new NoEventFoundException("No Event found for " + id + " ID"));
+    }
 
 }
