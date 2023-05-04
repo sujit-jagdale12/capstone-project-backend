@@ -9,6 +9,7 @@ import com.ani.ems.dto.ForgotpassDto;
 import com.ani.ems.dto.LoginDto;
 import com.ani.ems.dto.RegisterDto;
 import com.ani.ems.exception.DuplicateEmailFoundException;
+import com.ani.ems.exception.InvalidRoleException;
 import com.ani.ems.exception.UserNotFoundException;
 import com.ani.ems.repository.UserRepository;
 import com.ani.ems.util.DynamicMapper;
@@ -23,10 +24,11 @@ public class LoginServiceImpl implements LoginService {
     private final DynamicMapper dynamicMapper;
 
     @Override
-    public Integer registerUser(RegisterDto dto) throws DuplicateEmailFoundException {
+    public Integer registerUser(RegisterDto dto) {
+        if (!"user".equals(dto.getRole()) && !"admin".equals(dto.getRole()))
+            throw new InvalidRoleException("Invalid role! Enter admin/user");
         User user = dynamicMapper.convertor(dto, new User());
-        boolean isPresent = userRepository.existsByEmail(user.getEmail());
-        if (isPresent) {
+        if (userRepository.existsByEmail(user.getEmail())) {
             throw new DuplicateEmailFoundException("Email already used.");
         }
         userRepository.save(user);
