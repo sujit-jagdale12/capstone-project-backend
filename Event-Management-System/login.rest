@@ -3,10 +3,10 @@ POST http://localhost:8080/user/ HTTP/1.1
 content-type: application/json
 
 { 
-    "email": "sujit@gmail.com",
+    "email": "ssscom@gmail.com",
     "password":"sujit1234", 
     "gender" :"male",
-    "role":"User"
+    "role":"user"
 }
 
 ###
@@ -14,7 +14,7 @@ POST http://localhost:8080/user/login HTTP/1.1
 content-type: application/json
 
 { 
-    "email": "sujit@gmail.com",
+    "email": "asd",
     "password":"sujit1234"
 }
 

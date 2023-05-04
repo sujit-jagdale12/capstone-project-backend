@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -28,6 +29,7 @@ public class User {
 
     @NotNull(message = "Email should not be null")
     @NotBlank(message = "Email is mandatory")
+    @Email(message = "Invalid Email")
     private String email;
     
     @NotNull(message = "Password should not be null")

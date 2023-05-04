@@ -43,8 +43,22 @@ public class AdminController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @GetMapping(value = "/events", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<EventListDto>> findAll() {
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE )
+    public ResponseEntity<AppResponse<NewEventDto>> getInvoiceById(@PathVariable Long id) {
+
+        final NewEventDto dto = adminService.getEventById(id);
+
+        final AppResponse<NewEventDto> response = AppResponse.<NewEventDto>builder()
+                                                        .sts("success")
+                                                        .msg("Invoice Details")
+                                                        .bd(dto)
+                                                        .build();
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping(value = "/events/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<EventListDto>> findEvent(@PathVariable Long id) {
+
         return ResponseEntity.ok().body(adminService.getAllEvents());
     }
 

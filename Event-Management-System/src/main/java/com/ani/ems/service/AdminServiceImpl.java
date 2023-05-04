@@ -61,4 +61,13 @@ public class AdminServiceImpl implements AdminService {
         return 1;
     }
 
+    @Override
+    public NewEventDto getEventById(Long id) {
+        Optional<Event> eventByID = adminRepository.findById(id);
+        eventByID.orElseThrow(() -> new NoEventFoundException("No Event found for " + id + " ID"));
+
+        return new NewEventDto();
+    }
+
+
 }
