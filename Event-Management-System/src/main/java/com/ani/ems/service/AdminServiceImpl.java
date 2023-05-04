@@ -79,12 +79,21 @@ public class AdminServiceImpl implements AdminService {
 
         Event event = adminRepository.findById(id)
                 .orElseThrow(() -> new NoEventFoundException("Event not Found for " + id + " id"));
-                
-        Ticket ticket = dynamicMapper.convertor(dto, new Ticket());
-        ticket.setEvent(event);
-        ticketRepository.save(ticket);
+
+        Optional<Ticket> findByType = ticketRepository.findByType(dto.getType());
+        
+        if (!findByType.isPresent()) {
+            Ticket ticket = dynamicMapper.convertor(dto, new Ticket());
+            ticket.setEvent(event);
+            ticketRepository.save(ticket);
+        } else {
+            Ticket ticket = dynamicMapper.convertor(dto, findByType.get());
+            ticket.setEvent(event);
+            ticketRepository.save(ticket);
+        }
         return 1;
     }
+
 
     private boolean isValidTicketType(String type) {
         return type.equals("vip") || type.equals("earlybird") || type.equals("group");

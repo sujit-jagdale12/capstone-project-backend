@@ -53,6 +53,6 @@ public class Event {
     @ManyToMany(mappedBy = "events")
     private List<User> users;
 
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     private List<Ticket> tickets;
 }
