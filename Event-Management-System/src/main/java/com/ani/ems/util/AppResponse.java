@@ -8,7 +8,8 @@ import lombok.Setter;
 @Setter
 @Getter
 public class AppResponse<T> {
-    private String sts;
+    @Builder.Default
+    private final String sts = "SUCCESS";
     private String msg;
     private T bd;
 

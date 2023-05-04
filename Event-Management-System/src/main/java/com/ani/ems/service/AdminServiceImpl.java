@@ -7,11 +7,15 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.ani.ems.domain.Event;
+import com.ani.ems.domain.Ticket;
 import com.ani.ems.dto.EventListDto;
 import com.ani.ems.dto.NewEventDto;
+import com.ani.ems.dto.TicketDto;
 import com.ani.ems.dto.UpdateEventDto;
+import com.ani.ems.exception.InvalidTicketException;
 import com.ani.ems.exception.NoEventFoundException;
 import com.ani.ems.repository.AdminRepository;
+import com.ani.ems.repository.TicketRepository;
 import com.ani.ems.util.DynamicMapper;
 
 import lombok.AllArgsConstructor;
@@ -21,6 +25,7 @@ import lombok.AllArgsConstructor;
 public class AdminServiceImpl implements AdminService {
 
     private final AdminRepository adminRepository;
+    private final TicketRepository ticketRepository;
     private final DynamicMapper dynamicMapper;
 
     @Override
@@ -65,6 +70,24 @@ public class AdminServiceImpl implements AdminService {
 
     private void isEventPresent(Long id) {
         adminRepository.findById(id).orElseThrow(() -> new NoEventFoundException("No Event found for " + id + " ID"));
+    }
+
+    @Override
+    public Integer createTicket(Long id, TicketDto dto) {
+        if (!isValidTicketType(dto.getType()))
+            throw new InvalidTicketException("Invalid ticket type");
+
+        Event event = adminRepository.findById(id)
+                .orElseThrow(() -> new NoEventFoundException("Event not Found for " + id + " id"));
+                
+        Ticket ticket = dynamicMapper.convertor(dto, new Ticket());
+        ticket.setEvent(event);
+        ticketRepository.save(ticket);
+        return 1;
+    }
+
+    private boolean isValidTicketType(String type) {
+        return type.equals("vip") || type.equals("earlybird") || type.equals("group");
     }
 
 }

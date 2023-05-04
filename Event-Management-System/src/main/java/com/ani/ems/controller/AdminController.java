@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ani.ems.dto.EventListDto;
 import com.ani.ems.dto.NewEventDto;
+import com.ani.ems.dto.TicketDto;
 import com.ani.ems.dto.UpdateEventDto;
 import com.ani.ems.service.AdminService;
 import com.ani.ems.util.AppResponse;
@@ -36,7 +37,6 @@ public class AdminController {
     public ResponseEntity<AppResponse<Integer>> newEvent(@Valid @RequestBody NewEventDto dto) {
         Integer createNewEvent = adminService.createNewEvent(dto);
         AppResponse<Integer> response = AppResponse.<Integer>builder()
-                .sts("success")
                 .msg("new event created successfully.")
                 .bd(createNewEvent)
                 .build();
@@ -54,7 +54,6 @@ public class AdminController {
         NewEventDto dto = adminService.getEvent(id);
 
          AppResponse<NewEventDto> response = AppResponse.<NewEventDto>builder()
-                                                        .sts("success")
                                                         .msg("Event Details")
                                                         .bd(dto)
                                                         .build();
@@ -67,7 +66,6 @@ public class AdminController {
         final Integer sts = adminService.deleteEvent(id);
 
         final AppResponse<Integer> response = AppResponse.<Integer>builder()
-            .sts("success")
             .msg(id+" ID Event Deleted Successfully")
             .bd(sts)
             .build();
@@ -81,11 +79,20 @@ public class AdminController {
         final Integer sts = adminService.upateEvent(dto);
 
         final AppResponse<Integer> response = AppResponse.<Integer>builder()
-                                                    .sts("success")
                                                     .msg("Event Updated Successfully")
                                                     .bd(sts)
                                                     .build();
 
         return ResponseEntity.ok().body(response);
+    }
+
+    @PostMapping(value = "/events/{eventId}/tickets", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AppResponse<Integer>> createTicketForEvent(@Valid @PathVariable Long eventId, @RequestBody TicketDto ticketDto) {
+        Integer setTicket = adminService.createTicket(eventId,ticketDto);
+        AppResponse<Integer> response = AppResponse.<Integer>builder()
+                .msg("ticket created.")
+                .bd(setTicket)
+                .build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

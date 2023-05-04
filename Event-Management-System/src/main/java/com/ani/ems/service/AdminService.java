@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ani.ems.dto.EventListDto;
 import com.ani.ems.dto.NewEventDto;
+import com.ani.ems.dto.TicketDto;
 import com.ani.ems.dto.UpdateEventDto;
 
 public interface AdminService {
@@ -16,4 +17,6 @@ public interface AdminService {
     Integer upateEvent(UpdateEventDto dto);
 
     NewEventDto getEvent(Long id);
+
+    Integer createTicket(Long id,TicketDto dto);
 }
