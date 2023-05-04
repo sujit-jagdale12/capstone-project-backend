@@ -1,0 +1,15 @@
+POST http://localhost:8080/admin/newevent HTTP/1.1 
+Content-Type: application/json
+
+{ 
+    "title": "Fresher Party",
+    "description":"klwdjhfdhkhjkfcbhgeddsdsdfcdsc", 
+    "startdate" :"2023-07-04",
+    "enddate":"2024-07-04",
+    "location":"Pune",
+    "time":"9:00AM"
+}
+
+###
+
+GET http://localhost:8080/admin/events HTTP/1.1 

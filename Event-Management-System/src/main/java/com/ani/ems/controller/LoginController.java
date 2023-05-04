@@ -22,12 +22,12 @@ import lombok.AllArgsConstructor;
 @CrossOrigin
 @RestController
 @AllArgsConstructor
-@RequestMapping("/")
+@RequestMapping("/user")
 public class LoginController {
 
     private final LoginService loginService;
 
-    @PostMapping(value = "/signup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AppResponse<Integer>> signUpUser(@Valid @RequestBody RegisterDto dto) {
         Integer registerUser = loginService.registerUser(dto);
         AppResponse<Integer> response = AppResponse.<Integer>builder()
@@ -38,7 +38,7 @@ public class LoginController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @PostMapping(value = "/signin", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AppResponse<String>> loginUser(@Valid @RequestBody LoginDto dto) {
         String loginUser = loginService.loginUser(dto);
         AppResponse<String> response = AppResponse.<String>builder()

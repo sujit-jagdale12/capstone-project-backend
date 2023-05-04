@@ -2,7 +2,6 @@ package com.ani.ems.service;
 
 import java.util.Optional;
 
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import com.ani.ems.domain.User;

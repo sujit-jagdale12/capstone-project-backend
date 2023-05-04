@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -54,4 +53,11 @@ public class GlobalExceptionHandler {
         return errors;
     }
     
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(PastDateException.class)
+    public Map<String, String> handleDateExceptions(RuntimeException ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("msg", ex.getMessage());
+        return errors;
+    }
 }
