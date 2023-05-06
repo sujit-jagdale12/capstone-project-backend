@@ -59,7 +59,7 @@ public class UserController {
         return ResponseEntity.ok().body(userService.getEventsByLocation(location));
     }
 
-    @GetMapping(value = "/{userId}/event/{id}", produces = MediaType.APPLICATION_JSON_VALUE )
+    @GetMapping(value = "/{userId}/event/{eventId}", produces = MediaType.APPLICATION_JSON_VALUE )
     public ResponseEntity<AppResponse<UserEventDto>> findEventById(@PathVariable Long userId,@PathVariable Long eventId) {
 
         UserEventDto dto = userService.getEvent(userId,eventId);
