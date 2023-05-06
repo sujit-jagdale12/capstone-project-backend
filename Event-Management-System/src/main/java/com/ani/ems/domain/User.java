@@ -2,6 +2,7 @@ package com.ani.ems.domain;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -44,7 +45,7 @@ public class User {
     @NotBlank(message = "Role is mandatory")
     private String role;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "user_event",
         joinColumns = @JoinColumn(name = "user_id"),

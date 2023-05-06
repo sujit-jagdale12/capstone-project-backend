@@ -1,0 +1,18 @@
+### Book Event
+POST http://localhost:8080/attendee/1/event/2 HTTP/1.1 
+Content-Type: application/json
+
+
+### Get All Booked Events
+GET http://localhost:8080/attendee/1
+
+### Get Booked Event
+GET http://localhost:8080/attendee/1/event/8
+
+### Book Event
+GET  http://localhost:8080/attendee/events?location=Pune HTTP/1.1 
+Content-Type: application/json
+
+{
+    "location":"pune"
+}

@@ -12,12 +12,12 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class EventListDto {
+public class UserEventDto {
     private Long id;
     private String title;
     private LocalDate startdate;
     private LocalDate enddate;
     private String location;
     private String time;
-    
+    private String description;
 }

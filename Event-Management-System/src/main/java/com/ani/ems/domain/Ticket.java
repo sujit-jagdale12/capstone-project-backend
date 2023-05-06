@@ -26,14 +26,10 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    // @NotNull(message = "Enter Ticket Price")
-    // @Max(value = 5000, message = "Price can't be more than 5000")
-    // @Min(value = 100, message = "Price must be greater than 100")
+    @NotNull(message = "Enter Ticket Price")
+    @Max(value = 5000, message = "Price can't be more than 5000")
+    @Min(value = 100, message = "Price must be greater than 100")
     private Double price;
-
-    // @NotNull(message = "Enter max Ticket Quantity")
-    // @Min(value = 1, message = "Min Quantity must be greater than 1")
-    private Integer maxquantity;
 
     @NotBlank(message = "Enter Ticket type")
     @NotNull(message = "Enter Ticket Type")
