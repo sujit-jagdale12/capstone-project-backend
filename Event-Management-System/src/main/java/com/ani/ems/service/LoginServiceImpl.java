@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.ani.ems.domain.User;
 import com.ani.ems.dto.ForgotpassDto;
 import com.ani.ems.dto.LoginDto;
+import com.ani.ems.dto.LoginResponseDto;
 import com.ani.ems.dto.RegisterDto;
 import com.ani.ems.exception.DuplicateEmailFoundException;
 import com.ani.ems.exception.InvalidRoleException;
@@ -50,6 +51,14 @@ public class LoginServiceImpl implements LoginService {
         op.orElseThrow(() -> new UserNotFoundException("Email Not Found"));
 
         return "Reset link send to email";
+    }
+
+    @Override
+    public LoginResponseDto loginUserForResponse(LoginDto dto) {
+        Optional<User> op = userRepository.findByEmailAndPassword(dto.getEmail(), dto.getPassword());
+
+        User user = op.orElseThrow(() -> new UserNotFoundException("Email/Password is not valid"));
+        return dynamicMapper.convertor(user, new LoginResponseDto());
     }
 
 }

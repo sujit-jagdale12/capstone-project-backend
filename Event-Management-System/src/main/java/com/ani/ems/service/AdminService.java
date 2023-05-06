@@ -14,7 +14,7 @@ public interface AdminService {
 
     Integer deleteEvent(Long id);
 
-    Integer upateEvent(UpdateEventDto dto);
+    Integer updateEvent(UpdateEventDto dto);
 
     NewEventDto getEvent(Long id);
 

@@ -55,7 +55,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Integer upateEvent(UpdateEventDto dto) {
+    public Integer updateEvent(UpdateEventDto dto) {
         isEventPresent(dto.getId());
         adminRepository.save(dynamicMapper.convertor(dto, new Event()));
         return 1;

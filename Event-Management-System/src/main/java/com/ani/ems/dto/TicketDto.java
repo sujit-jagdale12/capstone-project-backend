@@ -16,8 +16,7 @@ import lombok.NoArgsConstructor;
 public class TicketDto {
 
     @NotNull(message = "Must enter price")
-    @Max(value = 5000, message = "Price can't be more than 5000")
-    @Min(value = 100, message = "Price must be greater than 100")
+    @Min(value = 0, message = "Price must be greater than 0")
     private Double price;
 
     @NotNull(message = "Ticket type can\'t be null")

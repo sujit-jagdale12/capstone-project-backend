@@ -9,12 +9,14 @@ import com.ani.ems.domain.Event;
 import com.ani.ems.domain.User;
 import com.ani.ems.dto.EventListDto;
 import com.ani.ems.dto.NewEventDto;
+import com.ani.ems.dto.TicketDto;
 import com.ani.ems.dto.UserEventDto;
 import com.ani.ems.exception.DuplicateEventException;
 import com.ani.ems.exception.InvalidRoleException;
 import com.ani.ems.exception.NoEventFoundException;
 import com.ani.ems.exception.UserNotFoundException;
 import com.ani.ems.repository.AdminRepository;
+import com.ani.ems.repository.TicketRepository;
 import com.ani.ems.repository.UserRepository;
 import com.ani.ems.util.DynamicMapper;
 
@@ -26,6 +28,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final AdminRepository adminRepository;
+    private final TicketRepository ticketRepository;
     private final DynamicMapper dynamicMapper;
 
     @Override
@@ -87,5 +90,15 @@ public class UserServiceImpl implements UserService {
                 .filter(event -> event.getId().equals(eventId))
                 .findFirst().map(event -> dynamicMapper.convertor(event, new UserEventDto()))
                 .orElseThrow(() -> new NoEventFoundException("Event not found"));
+    }
+
+    @Override
+    public List<TicketDto> getAllTicketsEventId(Long eventId) {
+        adminRepository.findById(eventId)
+                .orElseThrow(() -> new NoEventFoundException("Event not Found for " + eventId + " id"));
+        return ticketRepository.findByEventId(eventId)
+                .stream()
+                .map(ticket -> dynamicMapper.convertor(ticket, new TicketDto()))
+                .collect(Collectors.toList());
     }
 }

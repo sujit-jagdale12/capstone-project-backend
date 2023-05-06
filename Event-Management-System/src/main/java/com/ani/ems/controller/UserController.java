@@ -70,4 +70,10 @@ public class UserController {
                                                         .build();
         return ResponseEntity.ok().body(response);
     }
+
+    @GetMapping(value = "/tickets/{eventId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<TicketDto>> findAllTicketsByEventId(@PathVariable Long eventId) {
+
+        return ResponseEntity.ok().body(userService.getAllTicketsEventId(eventId));
+    }
 }

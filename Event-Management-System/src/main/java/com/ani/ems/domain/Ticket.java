@@ -27,8 +27,7 @@ public class Ticket {
     private Long id;
 
     @NotNull(message = "Enter Ticket Price")
-    @Max(value = 5000, message = "Price can't be more than 5000")
-    @Min(value = 100, message = "Price must be greater than 100")
+    @Min(value = 0, message = "Price must be greater than 0")
     private Double price;
 
     @NotBlank(message = "Enter Ticket type")

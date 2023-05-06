@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ani.ems.dto.ForgotpassDto;
 import com.ani.ems.dto.LoginDto;
+import com.ani.ems.dto.LoginResponseDto;
 import com.ani.ems.dto.RegisterDto;
 import com.ani.ems.service.LoginService;
 import com.ani.ems.util.AppResponse;
@@ -59,4 +60,16 @@ public class LoginController {
                 .build();
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
+    @PostMapping(value = "/loginv2", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AppResponse<LoginResponseDto>> loginResponseDetails(@Valid @RequestBody LoginDto dto) {
+        LoginResponseDto loginUser = loginService.loginUserForResponse(dto);
+        AppResponse<LoginResponseDto> response = AppResponse.<LoginResponseDto>builder()
+                .sts("success")
+                .msg("user login as...")
+                .bd(loginUser)
+                .build();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
 }

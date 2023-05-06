@@ -76,7 +76,7 @@ public class AdminController {
     @PutMapping(value = "/updateevent", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AppResponse<Integer>> updateNewInvoice(@Valid @RequestBody UpdateEventDto dto) {
 
-        final Integer sts = adminService.upateEvent(dto);
+        final Integer sts = adminService.updateEvent(dto);
 
         final AppResponse<Integer> response = AppResponse.<Integer>builder()
                                                     .msg("Event Updated Successfully")

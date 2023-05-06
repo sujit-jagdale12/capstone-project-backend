@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ani.ems.dto.EventListDto;
 import com.ani.ems.dto.NewEventDto;
+import com.ani.ems.dto.TicketDto;
 import com.ani.ems.dto.UserEventDto;
 
 public interface UserService {
@@ -14,4 +15,6 @@ public interface UserService {
     List<EventListDto> getEventsByLocation(String location);
 
     UserEventDto getEvent(Long userId,Long eventId);
+
+    List<TicketDto>getAllTicketsEventId(Long eventId);
 }
