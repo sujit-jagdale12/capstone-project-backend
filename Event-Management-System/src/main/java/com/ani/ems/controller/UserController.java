@@ -55,7 +55,7 @@ public class UserController {
 
     @GetMapping(value = "/events", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<EventListDto>> findEventById(@RequestParam String location) {
-
+ 
         return ResponseEntity.ok().body(userService.getEventsByLocation(location));
     }
 
