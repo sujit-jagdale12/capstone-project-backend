@@ -1,6 +1,8 @@
 package com.ani.ems.dto;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +20,6 @@ public class UserEventDto {
     private LocalDate startdate;
     private LocalDate enddate;
     private String location;
-    private String time;
+    private LocalTime time;
     private String description;
 }

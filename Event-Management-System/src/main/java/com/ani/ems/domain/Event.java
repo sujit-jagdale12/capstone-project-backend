@@ -1,6 +1,7 @@
 package com.ani.ems.domain;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,7 +15,9 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -46,9 +49,10 @@ public class Event {
     @NotNull(message = "location should not be null")
     private String location;
 
-    @NotBlank(message = "time is mandatory")
-    @NotNull(message = "time should not be null")
-    private String time;
+    // @NotBlank(message = "time is mandatory")
+    // @NotNull(message = "time should not be null")
+    // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
+    private LocalTime time;
 
     @ManyToMany(mappedBy = "events")
     private List<User> users;

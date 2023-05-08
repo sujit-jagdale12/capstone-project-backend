@@ -1,6 +1,10 @@
 package com.ani.ems.dto;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.*;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
@@ -33,7 +37,6 @@ public class NewEventDto {
     @NotNull(message = "location should not be null")
     private String location;
 
-    @NotBlank(message = "time is mandatory")
-    @NotNull(message = "time should not be null")
-    private String time;
+    // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
+    private LocalTime time;
 }

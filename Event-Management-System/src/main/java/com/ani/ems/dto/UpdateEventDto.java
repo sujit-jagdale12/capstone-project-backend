@@ -1,6 +1,7 @@
 package com.ani.ems.dto;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
@@ -35,7 +36,5 @@ public class UpdateEventDto {
     @NotNull(message = "location should not be null")
     private String location;
 
-    @NotBlank(message = "time is mandatory")
-    @NotNull(message = "time should not be null")
-    private String time;
+    private LocalTime time;
 }
