@@ -1,5 +1,6 @@
 package com.ani.ems.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.ani.ems.dto.EventListDto;
@@ -17,4 +18,6 @@ public interface UserService {
     UserEventDto getEvent(Long userId,Long eventId);
 
     List<TicketDto>getAllTicketsEventId(Long eventId);
+
+    List<EventListDto> getAllUpcomingEvents(LocalDate date);
 }

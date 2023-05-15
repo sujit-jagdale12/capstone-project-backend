@@ -1,5 +1,6 @@
 package com.ani.ems.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -100,5 +101,11 @@ public class UserServiceImpl implements UserService {
                 .stream()
                 .map(ticket -> dynamicMapper.convertor(ticket, new TicketDto()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<EventListDto> getAllUpcomingEvents(LocalDate date) {
+
+        
     }
 }

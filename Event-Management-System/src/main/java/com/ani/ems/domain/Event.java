@@ -39,10 +39,10 @@ public class Event {
     @NotNull(message = "description should not be null")
     private String description;
 
-    @Future(message = "Date should not be from past")
+    // @Future(message = "Date should not be from past")
     private LocalDate startdate;
 
-    @Future(message = "Date should not be from past")
+    // @Future(message = "Date should not be from past")
     private LocalDate enddate;
 
     @NotBlank(message = "location is mandatory")

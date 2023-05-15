@@ -43,7 +43,8 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({ UserNotFoundException.class, DuplicateEmailFoundException.class, PastDateException.class,
-            NoEventFoundException.class, InvalidRoleException.class, InvalidTicketException.class,DuplicateEventException.class })
+            NoEventFoundException.class, InvalidRoleException.class, InvalidTicketException.class,
+            DuplicateEventException.class, InvalidPasswordException.class })
     public Map<String, String> handleAppExceptions(RuntimeException ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put("msg", ex.getMessage());

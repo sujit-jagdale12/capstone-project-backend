@@ -19,4 +19,6 @@ public interface AdminService {
     NewEventDto getEvent(Long id);
 
     Integer createTicket(Long id,TicketDto dto);
+
+    
 }

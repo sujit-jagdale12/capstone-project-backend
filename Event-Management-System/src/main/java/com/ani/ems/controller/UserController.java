@@ -1,5 +1,6 @@
 package com.ani.ems.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -55,19 +56,20 @@ public class UserController {
 
     @GetMapping(value = "/events", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<EventListDto>> findEventById(@RequestParam String location) {
- 
+
         return ResponseEntity.ok().body(userService.getEventsByLocation(location));
     }
 
-    @GetMapping(value = "/{userId}/event/{eventId}", produces = MediaType.APPLICATION_JSON_VALUE )
-    public ResponseEntity<AppResponse<UserEventDto>> findEventById(@PathVariable Long userId,@PathVariable Long eventId) {
+    @GetMapping(value = "/{userId}/event/{eventId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AppResponse<UserEventDto>> findEventById(@PathVariable Long userId,
+            @PathVariable Long eventId) {
 
-        UserEventDto dto = userService.getEvent(userId,eventId);
+        UserEventDto dto = userService.getEvent(userId, eventId);
 
-         AppResponse<UserEventDto> response = AppResponse.<UserEventDto>builder()
-                                                        .msg("Event Details")
-                                                        .bd(dto)
-                                                        .build();
+        AppResponse<UserEventDto> response = AppResponse.<UserEventDto>builder()
+                .msg("Event Details")
+                .bd(dto)
+                .build();
         return ResponseEntity.ok().body(response);
     }
 
@@ -75,5 +77,11 @@ public class UserController {
     public ResponseEntity<List<TicketDto>> findAllTicketsByEventId(@PathVariable Long eventId) {
 
         return ResponseEntity.ok().body(userService.getAllTicketsEventId(eventId));
+    }
+
+    @GetMapping(value = "/upcomingevents", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<EventListDto>> upcomingEvents() {
+
+        return ResponseEntity.ok().body(userService.getAllUpcomingEvents(LocalDate.now()));
     }
 }
