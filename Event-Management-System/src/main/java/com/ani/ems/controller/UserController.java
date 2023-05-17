@@ -24,6 +24,7 @@ import com.ani.ems.dto.NewEventDto;
 import com.ani.ems.dto.TicketDto;
 import com.ani.ems.dto.UpdateEventDto;
 import com.ani.ems.dto.UserEventDto;
+import com.ani.ems.dto.ViewSpeakerDetails;
 import com.ani.ems.service.AdminService;
 import com.ani.ems.service.UserService;
 import com.ani.ems.util.AppResponse;
@@ -83,5 +84,11 @@ public class UserController {
     public ResponseEntity<List<EventListDto>> upcomingEvents() {
 
         return ResponseEntity.ok().body(userService.getAllUpcomingEvents(LocalDate.now()));
+    }
+
+    @GetMapping(value = "event/speaker/{eventId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ViewSpeakerDetails>> findAllSpeakersByEventId(@PathVariable Long eventId) {
+
+        return ResponseEntity.ok().body(userService.getAllSpeakersEventId(eventId));
     }
 }

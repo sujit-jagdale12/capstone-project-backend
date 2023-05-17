@@ -19,3 +19,6 @@ GET http://localhost:8080/attendee/tickets/5
 
 ### Get Ticket by eventId
 GET http://localhost:8080/attendee/upcomingevents
+
+### Get Speaker by eventId
+GET http://localhost:8080/attendee/event/speaker/10

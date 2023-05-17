@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ani.ems.dto.EventListDto;
 import com.ani.ems.dto.NewEventDto;
+import com.ani.ems.dto.ReminderDto;
 import com.ani.ems.dto.ScheduleDto;
 import com.ani.ems.dto.TicketDto;
 import com.ani.ems.dto.UpdateEventDto;
@@ -103,6 +104,16 @@ public class AdminController {
         AppResponse<Integer> response = AppResponse.<Integer>builder()
                 .msg("Speaker and Vendor added to event.")
                 .bd(createNewEvent)
+                .build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PostMapping(value = "/events/{eventId}/reminder", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AppResponse<Integer>> sendReminders(@Valid @PathVariable Long eventId, @RequestBody ReminderDto ticketDto) {
+        Integer setTicket = adminService.sendReminder(eventId,ticketDto);
+        AppResponse<Integer> response = AppResponse.<Integer>builder()
+                .msg("reminder send to email.")
+                .bd(setTicket)
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

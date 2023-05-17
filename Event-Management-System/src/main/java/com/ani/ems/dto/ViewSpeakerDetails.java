@@ -1,5 +1,4 @@
-package com.ani.ems.domain;
-
+package com.ani.ems.dto;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -25,23 +24,17 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class ReminderUpdate{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class ViewSpeakerDetails {
 
-    @NotBlank(message = "description is mandatory")
-    @NotNull(message = "description should not be null")
-    private String reminder;
+    @NotBlank(message = "speaker is mandatory")
+    @NotNull(message = "speaker should not be null")
+    private String speaker;
 
-    // @Future(message = "Date should not be from past")
-    private LocalDate date;
+    @NotBlank(message = "topic is mandatory")
+    @NotNull(message = "topic should not be null")
+    private String topic;
 
-    private LocalTime time;
+    private LocalTime startTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "event_id")
-    private Event event;
-
+    private LocalTime endTime;
 }

@@ -12,11 +12,13 @@ import com.ani.ems.dto.EventListDto;
 import com.ani.ems.dto.NewEventDto;
 import com.ani.ems.dto.TicketDto;
 import com.ani.ems.dto.UserEventDto;
+import com.ani.ems.dto.ViewSpeakerDetails;
 import com.ani.ems.exception.DuplicateEventException;
 import com.ani.ems.exception.InvalidRoleException;
 import com.ani.ems.exception.NoEventFoundException;
 import com.ani.ems.exception.UserNotFoundException;
 import com.ani.ems.repository.AdminRepository;
+import com.ani.ems.repository.ScheduleRepository;
 import com.ani.ems.repository.TicketRepository;
 import com.ani.ems.repository.UserRepository;
 import com.ani.ems.util.DynamicMapper;
@@ -30,6 +32,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final AdminRepository adminRepository;
     private final TicketRepository ticketRepository;
+    private final ScheduleRepository scheduleRepository;
+
     private final DynamicMapper dynamicMapper;
 
     @Override
@@ -114,5 +118,15 @@ public class UserServiceImpl implements UserService {
 
         return collect;
 
+    }
+
+    @Override
+    public List<ViewSpeakerDetails> getAllSpeakersEventId(Long eventId) {
+        adminRepository.findById(eventId)
+                .orElseThrow(() -> new NoEventFoundException("Event not Found for " + eventId + " id"));
+        return scheduleRepository.findByEventId(eventId)
+                .stream()
+                .map(speaker -> dynamicMapper.convertor(speaker, new ViewSpeakerDetails()))
+                .collect(Collectors.toList());
     }
 }

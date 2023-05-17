@@ -52,7 +52,7 @@ POST http://localhost:8080/admin/events/1/speakervendor HTTP/1.1
 Content-Type: application/json
 
 {
-   "speaker":"sujit Jagdale",
+   "speaker":"Don",
    "topic":"moTIVATION",
    "startTime":"10:30",
    "endTime":"10:30",

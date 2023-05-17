@@ -39,19 +39,14 @@ public class Event {
     @NotNull(message = "description should not be null")
     private String description;
 
-    // @Future(message = "Date should not be from past")
     private LocalDate startdate;
 
-    // @Future(message = "Date should not be from past")
     private LocalDate enddate;
 
     @NotBlank(message = "location is mandatory")
     @NotNull(message = "location should not be null")
     private String location;
 
-    // @NotBlank(message = "time is mandatory")
-    // @NotNull(message = "time should not be null")
-    // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime time;
 
     @ManyToMany(mappedBy = "events")

@@ -7,6 +7,7 @@ import com.ani.ems.dto.EventListDto;
 import com.ani.ems.dto.NewEventDto;
 import com.ani.ems.dto.TicketDto;
 import com.ani.ems.dto.UserEventDto;
+import com.ani.ems.dto.ViewSpeakerDetails;
 
 public interface UserService {
     Integer bookEvent(Long userId,Long eventId);
@@ -18,6 +19,8 @@ public interface UserService {
     UserEventDto getEvent(Long userId,Long eventId);
 
     List<TicketDto>getAllTicketsEventId(Long eventId);
+    
+    List<ViewSpeakerDetails>getAllSpeakersEventId(Long eventId);
 
     List<EventListDto> getAllUpcomingEvents(LocalDate date);
 }
