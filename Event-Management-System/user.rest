@@ -4,10 +4,10 @@ Content-Type: application/json
 
 
 ### Get All Booked Events by user id
-GET http://localhost:8080/attendee/1
+GET http://localhost:8080/attendee/2
 
 ### Get Booked Event by user id and event id
-GET http://localhost:8080/attendee/1/event/8
+GET http://localhost:8080/attendee/2/event/2
 
 ### Filter event Event
 GET  http://localhost:8080/attendee/events?location=Mumbai HTTP/1.1 

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ani.ems.dto.EventListDto;
 import com.ani.ems.dto.NewEventDto;
+import com.ani.ems.dto.ScheduleDto;
 import com.ani.ems.dto.TicketDto;
 import com.ani.ems.dto.UpdateEventDto;
 import com.ani.ems.service.AdminService;
@@ -92,6 +93,16 @@ public class AdminController {
         AppResponse<Integer> response = AppResponse.<Integer>builder()
                 .msg("ticket created.")
                 .bd(setTicket)
+                .build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PostMapping(value = "events/{eventId}/speakervendor", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AppResponse<Integer>> addSpeakersAndVendors(@Valid @PathVariable Long eventId, @RequestBody ScheduleDto dto) {
+        Integer createNewEvent = adminService.addSchedule(eventId,dto);
+        AppResponse<Integer> response = AppResponse.<Integer>builder()
+                .msg("Speaker and Vendor added to event.")
+                .bd(createNewEvent)
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

@@ -4,11 +4,14 @@ import java.util.List;
 
 import com.ani.ems.dto.EventListDto;
 import com.ani.ems.dto.NewEventDto;
+import com.ani.ems.dto.ScheduleDto;
 import com.ani.ems.dto.TicketDto;
 import com.ani.ems.dto.UpdateEventDto;
 
 public interface AdminService {
     Integer createNewEvent(NewEventDto dto);
+    
+    Integer addSchedule(Long eventId,ScheduleDto dto);
 
     List<EventListDto> getAllEvents();
 

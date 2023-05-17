@@ -105,7 +105,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<EventListDto> getAllUpcomingEvents(LocalDate date) {
+        List<EventListDto> collect = adminRepository.findAllByEnddateGreaterThanEqual(date)
+                .stream()
+                .map(event -> dynamicMapper.convertor(event, new EventListDto()))
+                .collect(Collectors.toList());
+        if (collect.isEmpty())
+            throw new NoEventFoundException("No event found create one.");
 
-        
+        return collect;
+
     }
 }

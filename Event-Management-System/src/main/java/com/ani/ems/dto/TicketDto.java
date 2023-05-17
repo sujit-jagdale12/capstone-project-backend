@@ -22,4 +22,7 @@ public class TicketDto {
     @NotNull(message = "Ticket type can\'t be null")
     @NotBlank(message = "Must enter ticket type")
     private String type;
+
+    // @NotNull(message = "Enter Ticket Type")
+    // private Integer quantity;
 }

@@ -7,14 +7,17 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.ani.ems.domain.Event;
+import com.ani.ems.domain.Schedule;
 import com.ani.ems.domain.Ticket;
 import com.ani.ems.dto.EventListDto;
 import com.ani.ems.dto.NewEventDto;
+import com.ani.ems.dto.ScheduleDto;
 import com.ani.ems.dto.TicketDto;
 import com.ani.ems.dto.UpdateEventDto;
 import com.ani.ems.exception.InvalidTicketException;
 import com.ani.ems.exception.NoEventFoundException;
 import com.ani.ems.repository.AdminRepository;
+import com.ani.ems.repository.ScheduleRepository;
 import com.ani.ems.repository.TicketRepository;
 import com.ani.ems.util.DynamicMapper;
 
@@ -27,6 +30,7 @@ public class AdminServiceImpl implements AdminService {
     private final AdminRepository adminRepository;
     private final TicketRepository ticketRepository;
     private final DynamicMapper dynamicMapper;
+    private final ScheduleRepository scheduleRepository;
 
     @Override
     public Integer createNewEvent(NewEventDto dto) {
@@ -88,6 +92,15 @@ public class AdminServiceImpl implements AdminService {
 
     private boolean isValidTicketType(String type) {
         return type.equals("vip") || type.equals("earlybird") || type.equals("group");
+    }
+
+    @Override
+    public Integer addSchedule(Long eventId,ScheduleDto dto) {
+        Event event = adminRepository.findById(eventId).orElseThrow(() -> new NoEventFoundException("No Event found for " + eventId + " ID"));
+        Schedule schedule = dynamicMapper.convertor(dto, new Schedule());
+        schedule.setEvent(event);
+        scheduleRepository.save(schedule);
+        return 1;
     }
 
 }
