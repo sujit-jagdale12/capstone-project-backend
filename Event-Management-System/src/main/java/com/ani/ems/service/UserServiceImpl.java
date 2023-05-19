@@ -7,17 +7,20 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.ani.ems.domain.Event;
+import com.ani.ems.domain.ReminderUpdate;
 import com.ani.ems.domain.User;
 import com.ani.ems.dto.EventListDto;
 import com.ani.ems.dto.NewEventDto;
 import com.ani.ems.dto.TicketDto;
 import com.ani.ems.dto.UserEventDto;
+import com.ani.ems.dto.UserReminderDto;
 import com.ani.ems.dto.ViewSpeakerDetails;
 import com.ani.ems.exception.DuplicateEventException;
 import com.ani.ems.exception.InvalidRoleException;
 import com.ani.ems.exception.NoEventFoundException;
 import com.ani.ems.exception.UserNotFoundException;
 import com.ani.ems.repository.AdminRepository;
+import com.ani.ems.repository.ReminderRepository;
 import com.ani.ems.repository.ScheduleRepository;
 import com.ani.ems.repository.TicketRepository;
 import com.ani.ems.repository.UserRepository;
@@ -33,6 +36,7 @@ public class UserServiceImpl implements UserService {
     private final AdminRepository adminRepository;
     private final TicketRepository ticketRepository;
     private final ScheduleRepository scheduleRepository;
+    private final ReminderRepository reminderRepository;
 
     private final DynamicMapper dynamicMapper;
 
@@ -127,6 +131,17 @@ public class UserServiceImpl implements UserService {
         return scheduleRepository.findByEventId(eventId)
                 .stream()
                 .map(speaker -> dynamicMapper.convertor(speaker, new ViewSpeakerDetails()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserReminderDto> getAllReminders(Long eventId) {
+        adminRepository.findById(eventId)
+                .orElseThrow(() -> new NoEventFoundException("Event not Found for " + eventId + " id"));
+
+        return reminderRepository.findByEventId(eventId)
+                .stream()
+                .map(speaker -> dynamicMapper.convertor(speaker, new UserReminderDto()))
                 .collect(Collectors.toList());
     }
 }

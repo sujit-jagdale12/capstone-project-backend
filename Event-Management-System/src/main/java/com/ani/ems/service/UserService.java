@@ -7,6 +7,7 @@ import com.ani.ems.dto.EventListDto;
 import com.ani.ems.dto.NewEventDto;
 import com.ani.ems.dto.TicketDto;
 import com.ani.ems.dto.UserEventDto;
+import com.ani.ems.dto.UserReminderDto;
 import com.ani.ems.dto.ViewSpeakerDetails;
 
 public interface UserService {
@@ -23,4 +24,6 @@ public interface UserService {
     List<ViewSpeakerDetails>getAllSpeakersEventId(Long eventId);
 
     List<EventListDto> getAllUpcomingEvents(LocalDate date);
+
+    List<UserReminderDto> getAllReminders(Long eventId);
 }

@@ -24,6 +24,7 @@ import com.ani.ems.dto.NewEventDto;
 import com.ani.ems.dto.TicketDto;
 import com.ani.ems.dto.UpdateEventDto;
 import com.ani.ems.dto.UserEventDto;
+import com.ani.ems.dto.UserReminderDto;
 import com.ani.ems.dto.ViewSpeakerDetails;
 import com.ani.ems.service.AdminService;
 import com.ani.ems.service.UserService;
@@ -90,5 +91,16 @@ public class UserController {
     public ResponseEntity<List<ViewSpeakerDetails>> findAllSpeakersByEventId(@PathVariable Long eventId) {
 
         return ResponseEntity.ok().body(userService.getAllSpeakersEventId(eventId));
+    }
+
+    @GetMapping(value = "/events/{eventId}/reminders", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<UserReminderDto>> getRemindersAndUpdates(@PathVariable Long eventId) {
+
+        // AppResponse<UserEventDto> response = AppResponse.<UserEventDto>builder()
+        //         .msg("Event Details")
+        //         .bd(dto)
+        //         .build();
+        // return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok().body(userService.getAllReminders(eventId));
     }
 }

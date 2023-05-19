@@ -22,3 +22,6 @@ GET http://localhost:8080/attendee/upcomingevents
 
 ### Get Speaker by eventId
 GET http://localhost:8080/attendee/event/speaker/10
+
+### Get Event By Passing ID
+GET http://localhost:8080/attendee/events/4/reminders
