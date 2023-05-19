@@ -94,13 +94,14 @@ public class UserController {
     }
 
     @GetMapping(value = "/events/{eventId}/reminders", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<UserReminderDto>> getRemindersAndUpdates(@PathVariable Long eventId) {
+    public ResponseEntity<AppResponse<List<UserReminderDto>>> getRemindersAndUpdates(@PathVariable Long eventId) {
 
-        // AppResponse<UserEventDto> response = AppResponse.<UserEventDto>builder()
-        //         .msg("Event Details")
-        //         .bd(dto)
-        //         .build();
-        // return ResponseEntity.ok().body(response);
-        return ResponseEntity.ok().body(userService.getAllReminders(eventId));
+        List<UserReminderDto> allReminders = userService.getAllReminders(eventId);
+        AppResponse<List<UserReminderDto>> response = AppResponse.<List<UserReminderDto>>builder()
+                .msg("Reminders for event")
+                .bd(allReminders)
+                .build();
+        return ResponseEntity.ok().body(response);
+        // return ResponseEntity.ok().body();
     }
 }
