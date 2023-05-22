@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.ani.ems.dto.EventListDto;
 import com.ani.ems.dto.NewEventDto;
+import com.ani.ems.dto.OrderDto;
 import com.ani.ems.dto.TicketDto;
 import com.ani.ems.dto.UserEventDto;
 import com.ani.ems.dto.UserReminderDto;
@@ -12,6 +13,8 @@ import com.ani.ems.dto.ViewSpeakerDetails;
 
 public interface UserService {
     Integer bookEvent(Long userId,Long eventId);
+
+    Integer orderEventTicket(Long userId,OrderDto dto);
 
     List<UserEventDto> getAllEvents(Long userId);
 

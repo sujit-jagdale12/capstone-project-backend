@@ -7,10 +7,12 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.ani.ems.domain.Event;
+import com.ani.ems.domain.OrderTicket;
 import com.ani.ems.domain.ReminderUpdate;
 import com.ani.ems.domain.User;
 import com.ani.ems.dto.EventListDto;
 import com.ani.ems.dto.NewEventDto;
+import com.ani.ems.dto.OrderDto;
 import com.ani.ems.dto.TicketDto;
 import com.ani.ems.dto.UserEventDto;
 import com.ani.ems.dto.UserReminderDto;
@@ -20,6 +22,7 @@ import com.ani.ems.exception.InvalidRoleException;
 import com.ani.ems.exception.NoEventFoundException;
 import com.ani.ems.exception.UserNotFoundException;
 import com.ani.ems.repository.AdminRepository;
+import com.ani.ems.repository.OrderRepository;
 import com.ani.ems.repository.ReminderRepository;
 import com.ani.ems.repository.ScheduleRepository;
 import com.ani.ems.repository.TicketRepository;
@@ -37,6 +40,7 @@ public class UserServiceImpl implements UserService {
     private final TicketRepository ticketRepository;
     private final ScheduleRepository scheduleRepository;
     private final ReminderRepository reminderRepository;
+    private final OrderRepository orderRepository;
 
     private final DynamicMapper dynamicMapper;
 
@@ -55,6 +59,22 @@ public class UserServiceImpl implements UserService {
             throw new DuplicateEventException("Event already booked...");
         user.getEvents().add(event);
         userRepository.save(user);
+        return 1;
+    }
+
+    @Override
+    public Integer orderEventTicket(Long userId, OrderDto dto) {
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("No User found for " + userId + " ID"));
+
+        if (user.getRole().equals("admin"))
+            throw new InvalidRoleException("Admin can't book Event");
+            OrderTicket order = dynamicMapper.convertor(dto, new OrderTicket());
+        order.setUser(user);
+        order.setDate(LocalDate.now());
+
+        orderRepository.save(order);
         return 1;
     }
 

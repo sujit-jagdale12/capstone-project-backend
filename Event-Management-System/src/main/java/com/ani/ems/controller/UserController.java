@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ani.ems.dto.EventListDto;
 import com.ani.ems.dto.NewEventDto;
+import com.ani.ems.dto.OrderDto;
 import com.ani.ems.dto.TicketDto;
 import com.ani.ems.dto.UpdateEventDto;
 import com.ani.ems.dto.UserEventDto;
@@ -111,5 +112,15 @@ public class UserController {
                 .build();
         return ResponseEntity.ok().body(response);
         // return ResponseEntity.ok().body();
+    }
+
+    @PostMapping(value = "/{userId}/order", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AppResponse<Integer>> orderTickets(@Valid @PathVariable Long userId,@RequestBody OrderDto dto) {
+        Integer bookEvent = userService.orderEventTicket(userId,dto);
+        AppResponse<Integer> response = AppResponse.<Integer>builder()
+                .msg("new event booked successfully.")
+                .bd(1)
+                .build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }
