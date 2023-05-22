@@ -16,6 +16,8 @@ public interface UserService {
     List<UserEventDto> getAllEvents(Long userId);
 
     List<EventListDto> getEventsByLocation(String location);
+    
+    List<EventListDto> getEventsByDate(LocalDate date);
 
     UserEventDto getEvent(Long userId,Long eventId);
 

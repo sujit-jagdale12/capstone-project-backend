@@ -89,6 +89,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<EventListDto> getEventsByDate(LocalDate date) {
+        List<EventListDto> collect = adminRepository.findAllByStartdate(date)
+                .stream()
+                .map(event -> dynamicMapper.convertor(event, new EventListDto()))
+                .collect(Collectors.toList());
+        if (collect.isEmpty())
+            throw new NoEventFoundException("No event found for location");
+
+        return collect;
+    }
+
+    @Override
     public UserEventDto getEvent(Long userId, Long eventId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("No User found for " + userId + " ID"));

@@ -11,6 +11,8 @@ import java.util.List;
 
 public interface AdminRepository extends JpaRepository<Event, Long> {
     List<Event> findAllByLocation(String location);
-    
+
+    List<Event> findAllByStartdate(LocalDate date);
+
     List<Event> findAllByEnddateGreaterThanEqual(LocalDate date);
 }
