@@ -2,6 +2,7 @@ package com.ani.ems.service;
 
 import java.util.List;
 
+import com.ani.ems.dto.AnalyticsDto;
 import com.ani.ems.dto.EventListDto;
 import com.ani.ems.dto.NewEventDto;
 import com.ani.ems.dto.ReminderDto;
@@ -26,4 +27,5 @@ public interface AdminService {
     
     Integer sendReminder(Long eventId,ReminderDto dto);
     
+    List<AnalyticsDto> getTicketTypeCounts(Long eventId);
 }

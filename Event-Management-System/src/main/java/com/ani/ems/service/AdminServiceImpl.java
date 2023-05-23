@@ -1,5 +1,6 @@
 package com.ani.ems.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -10,6 +11,7 @@ import com.ani.ems.domain.Event;
 import com.ani.ems.domain.ReminderUpdate;
 import com.ani.ems.domain.Schedule;
 import com.ani.ems.domain.Ticket;
+import com.ani.ems.dto.AnalyticsDto;
 import com.ani.ems.dto.EventListDto;
 import com.ani.ems.dto.NewEventDto;
 import com.ani.ems.dto.ReminderDto;
@@ -19,6 +21,7 @@ import com.ani.ems.dto.UpdateEventDto;
 import com.ani.ems.exception.InvalidTicketException;
 import com.ani.ems.exception.NoEventFoundException;
 import com.ani.ems.repository.AdminRepository;
+import com.ani.ems.repository.OrderRepository;
 import com.ani.ems.repository.ReminderRepository;
 import com.ani.ems.repository.ScheduleRepository;
 import com.ani.ems.repository.TicketRepository;
@@ -35,6 +38,7 @@ public class AdminServiceImpl implements AdminService {
     private final DynamicMapper dynamicMapper;
     private final ScheduleRepository scheduleRepository;
     private final ReminderRepository reminderRepository;
+    private final OrderRepository orderRepository;
 
     @Override
     public Integer createNewEvent(NewEventDto dto) {
@@ -118,6 +122,20 @@ public class AdminServiceImpl implements AdminService {
 
         reminderRepository.save(reminderUpdate);
         return 1;
+    }
+
+    @Override
+    public List<AnalyticsDto> getTicketTypeCounts(Long eventId) {
+        List<Object[]> ticketTypeCounts = orderRepository.countTicketsByType(eventId);
+
+        List<AnalyticsDto> ticketTypeCountDTOs = new ArrayList<>();
+        for (Object[] result : ticketTypeCounts) {
+            String ticketType = (String) result[0];
+            Long count = (Long) result[1];
+            ticketTypeCountDTOs.add(new AnalyticsDto(ticketType, count));
+        }
+
+        return ticketTypeCountDTOs;
     }
 
 }

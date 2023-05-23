@@ -72,3 +72,6 @@ Content-Type: application/json
    "time":"10:30"
 }
 
+
+### Get Event analytics by ticket type by passing event id
+GET http://localhost:8080/admin/events/analytics/145

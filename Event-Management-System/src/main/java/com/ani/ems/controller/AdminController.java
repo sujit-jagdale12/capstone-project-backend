@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ani.ems.dto.AnalyticsDto;
 import com.ani.ems.dto.EventListDto;
 import com.ani.ems.dto.NewEventDto;
 import com.ani.ems.dto.ReminderDto;
@@ -116,5 +117,10 @@ public class AdminController {
                 .bd(setTicket)
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @GetMapping(value = "/events/analytics/{eventId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<AnalyticsDto>> viewAnalytics(@PathVariable Long eventId) {
+        return ResponseEntity.ok().body(adminService.getTicketTypeCounts(eventId));
     }
 }
