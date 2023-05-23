@@ -114,12 +114,14 @@ public class UserController {
         // return ResponseEntity.ok().body();
     }
 
-    @PostMapping(value = "/{userId}/order", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AppResponse<Integer>> orderTickets(@Valid @PathVariable Long userId,@RequestBody OrderDto dto) {
-        Integer bookEvent = userService.orderEventTicket(userId,dto);
+    @PostMapping(value = "/{userId}/event/{eventId}/order", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AppResponse<Integer>> orderTickets(@Valid @PathVariable Long userId,
+            @PathVariable Long eventId,
+            @RequestBody OrderDto dto) {
+        Integer bookEvent = userService.orderEventTicket(userId, eventId, dto);
         AppResponse<Integer> response = AppResponse.<Integer>builder()
                 .msg("new event booked successfully.")
-                .bd(1)
+                .bd(bookEvent)
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

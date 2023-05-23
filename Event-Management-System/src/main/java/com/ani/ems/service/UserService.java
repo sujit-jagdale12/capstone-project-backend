@@ -14,7 +14,7 @@ import com.ani.ems.dto.ViewSpeakerDetails;
 public interface UserService {
     Integer bookEvent(Long userId,Long eventId);
 
-    Integer orderEventTicket(Long userId,OrderDto dto);
+    Integer orderEventTicket(Long userId,Long eventId,OrderDto dto);
 
     List<UserEventDto> getAllEvents(Long userId);
 

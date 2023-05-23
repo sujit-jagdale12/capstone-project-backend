@@ -20,6 +20,7 @@ import com.ani.ems.dto.ViewSpeakerDetails;
 import com.ani.ems.exception.DuplicateEventException;
 import com.ani.ems.exception.InvalidRoleException;
 import com.ani.ems.exception.NoEventFoundException;
+import com.ani.ems.exception.PastDateException;
 import com.ani.ems.exception.UserNotFoundException;
 import com.ani.ems.repository.AdminRepository;
 import com.ani.ems.repository.OrderRepository;
@@ -63,18 +64,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer orderEventTicket(Long userId, OrderDto dto) {
+    public Integer orderEventTicket(Long userId, Long eventId, OrderDto dto) {
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("No User found for " + userId + " ID"));
 
+        Event event = adminRepository.findById(eventId)
+                .orElseThrow(() -> new NoEventFoundException("Event not Found for " + eventId + " id"));
+        if (event.getStartdate().isBefore(LocalDate.now()))
+            throw new PastDateException("Can't book event its already occured.");
         if (user.getRole().equals("admin"))
             throw new InvalidRoleException("Admin can't book Event");
-            OrderTicket order = dynamicMapper.convertor(dto, new OrderTicket());
+        OrderTicket order = dynamicMapper.convertor(dto, new OrderTicket());
         order.setUser(user);
         order.setDate(LocalDate.now());
-
+        order.setEvent(event);
         orderRepository.save(order);
+
+        user.getEvents().add(event);
+        userRepository.save(user);
+
         return 1;
     }
 

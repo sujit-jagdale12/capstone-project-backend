@@ -58,6 +58,9 @@ public class Event {
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     private List<ReminderUpdate> reminders;
 
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+    private List<OrderTicket> orders;
+
     @OneToOne(mappedBy = "event", cascade = CascadeType.ALL)
     private Schedule schedule;
 }

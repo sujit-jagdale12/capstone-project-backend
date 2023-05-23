@@ -39,12 +39,12 @@ Content-Type: application/json
 
 ### Set tickets
 
-POST http://localhost:8080/admin/events/14/tickets HTTP/1.1 
+POST http://localhost:8080/admin/events/145/tickets HTTP/1.1 
 Content-Type: application/json
 
 {
-   "type":"group",
-   "price":450
+   "type":"earlybird",
+   "price":100
 }
 ### Set Speakers and vendors to event
 
