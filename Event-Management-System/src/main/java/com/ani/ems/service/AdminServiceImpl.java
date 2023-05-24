@@ -132,7 +132,8 @@ public class AdminServiceImpl implements AdminService {
         for (Object[] result : ticketTypeCounts) {
             String ticketType = (String) result[0];
             Long count = (Long) result[1];
-            ticketTypeCountDTOs.add(new AnalyticsDto(ticketType, count));
+            Long totalQuantity = orderRepository.sumQuantityByTicketType(eventId, ticketType);
+            ticketTypeCountDTOs.add(new AnalyticsDto(ticketType, count, totalQuantity));
         }
 
         return ticketTypeCountDTOs;

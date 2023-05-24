@@ -20,4 +20,5 @@ public class AnalyticsDto {
 
     private String ticketType;
     private Long ticketCount;
+    private Long totalQuantity;
 }
