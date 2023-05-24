@@ -77,7 +77,7 @@ POST http://localhost:8080/admin/events/145/notification HTTP/1.1
 Content-Type: application/json
 
 {
-   "message":"Change in time come at 5 Am"
+   "message":"come quick time has been changed"
 }
 
 ### Get Event analytics by ticket type by passing event id

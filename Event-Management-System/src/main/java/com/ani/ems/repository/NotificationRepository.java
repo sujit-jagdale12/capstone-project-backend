@@ -10,6 +10,6 @@ import com.ani.ems.domain.User;
 
 public interface NotificationRepository extends JpaRepository<Notification,Long>{
 
-    List<Notification> findByUserAndEvent(User user, Event event);
+    List<Notification> findByUser(User user);
     
 }

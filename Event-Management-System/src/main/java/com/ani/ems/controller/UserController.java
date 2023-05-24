@@ -113,10 +113,10 @@ public class UserController {
                 .build();
         return ResponseEntity.ok().body(response);
     }
-    @GetMapping(value = "/{userId}/events/{eventId}/notification", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AppResponse<List<GetNotificationDto>>> getNotifications(@PathVariable Long eventId,@PathVariable Long userId) {
+    @GetMapping(value = "/{userId}/notification", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AppResponse<List<GetNotificationDto>>> getNotifications(@PathVariable Long userId) {
 
-        List<GetNotificationDto> getNotifications = userService.getNotifications(userId,eventId);
+        List<GetNotificationDto> getNotifications = userService.getNotifications(userId);
         AppResponse<List<GetNotificationDto>> response = AppResponse.<List<GetNotificationDto>>builder()
                 .msg("Reminders for event")
                 .bd(getNotifications)

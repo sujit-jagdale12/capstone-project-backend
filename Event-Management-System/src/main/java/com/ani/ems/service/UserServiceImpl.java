@@ -192,12 +192,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<GetNotificationDto> getNotifications(Long userId, Long eventId) {
-        Event event = adminRepository.findById(eventId)
-                .orElseThrow(() -> new NoEventFoundException("Event not Found for " + eventId + " id"));
+    public List<GetNotificationDto> getNotifications(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("No User found for " + userId + " ID"));
-        List<Notification> notifications = notificationRepository.findByUserAndEvent(user, event);
+        List<Notification> notifications = notificationRepository.findByUser(user);
         List<GetNotificationDto> notificationDtos = new ArrayList<>();
 
         for (Notification notification : notifications) {

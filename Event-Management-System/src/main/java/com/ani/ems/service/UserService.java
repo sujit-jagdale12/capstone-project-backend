@@ -33,5 +33,5 @@ public interface UserService {
 
     List<UserReminderDto> getAllReminders(Long eventId);
 
-    List<GetNotificationDto> getNotifications(Long userId,Long eventId);
+    List<GetNotificationDto> getNotifications(Long userId);
 }

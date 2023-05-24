@@ -42,5 +42,5 @@ Content-Type: application/json
       "quantity":5
 }
 
-### Get all reminders for user by userId
-GET http://localhost:8080/attendee/2/events/145/notification
+### Get all notifications for user by userId
+GET http://localhost:8080/attendee/2/notification
