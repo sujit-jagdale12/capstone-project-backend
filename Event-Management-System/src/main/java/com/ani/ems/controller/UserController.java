@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ani.ems.dto.EventListDto;
+import com.ani.ems.dto.GetNotificationDto;
 import com.ani.ems.dto.NewEventDto;
 import com.ani.ems.dto.OrderDto;
 import com.ani.ems.dto.TicketDto;
@@ -111,7 +112,16 @@ public class UserController {
                 .bd(allReminders)
                 .build();
         return ResponseEntity.ok().body(response);
-        // return ResponseEntity.ok().body();
+    }
+    @GetMapping(value = "/{userId}/events/{eventId}/notification", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AppResponse<List<GetNotificationDto>>> getNotifications(@PathVariable Long eventId,@PathVariable Long userId) {
+
+        List<GetNotificationDto> getNotifications = userService.getNotifications(userId,eventId);
+        AppResponse<List<GetNotificationDto>> response = AppResponse.<List<GetNotificationDto>>builder()
+                .msg("Reminders for event")
+                .bd(getNotifications)
+                .build();
+        return ResponseEntity.ok().body(response);
     }
 
     @PostMapping(value = "/{userId}/event/{eventId}/order", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

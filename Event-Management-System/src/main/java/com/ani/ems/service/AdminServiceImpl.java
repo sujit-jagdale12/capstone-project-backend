@@ -1,26 +1,34 @@
 package com.ani.ems.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import com.ani.ems.domain.Event;
+import com.ani.ems.domain.Notification;
+import com.ani.ems.domain.OrderTicket;
 import com.ani.ems.domain.ReminderUpdate;
 import com.ani.ems.domain.Schedule;
 import com.ani.ems.domain.Ticket;
+import com.ani.ems.domain.User;
 import com.ani.ems.dto.AnalyticsDto;
 import com.ani.ems.dto.EventListDto;
 import com.ani.ems.dto.NewEventDto;
 import com.ani.ems.dto.ReminderDto;
 import com.ani.ems.dto.ScheduleDto;
+import com.ani.ems.dto.SendNotificationDto;
 import com.ani.ems.dto.TicketDto;
 import com.ani.ems.dto.UpdateEventDto;
 import com.ani.ems.exception.InvalidTicketException;
 import com.ani.ems.exception.NoEventFoundException;
 import com.ani.ems.repository.AdminRepository;
+import com.ani.ems.repository.NotificationRepository;
 import com.ani.ems.repository.OrderRepository;
 import com.ani.ems.repository.ReminderRepository;
 import com.ani.ems.repository.ScheduleRepository;
@@ -39,6 +47,7 @@ public class AdminServiceImpl implements AdminService {
     private final ScheduleRepository scheduleRepository;
     private final ReminderRepository reminderRepository;
     private final OrderRepository orderRepository;
+    private final NotificationRepository notificationRepository;
 
     @Override
     public Integer createNewEvent(NewEventDto dto) {
@@ -121,6 +130,26 @@ public class AdminServiceImpl implements AdminService {
         reminderUpdate.setEvent(event);
 
         reminderRepository.save(reminderUpdate);
+        return 1;
+    }
+
+    @Override
+    public Integer sendNotification(Long eventId, SendNotificationDto dto) {
+        Set<User> notifiedUsers = new HashSet<>();
+        Event event = adminRepository.findById(eventId)
+                .orElseThrow(() -> new NoEventFoundException("Event not Found for " + eventId + " id"));
+        List<OrderTicket> orders = orderRepository.findByEvent(event);
+        for (OrderTicket order : orders) {
+            User user = order.getUser();
+            if (!notifiedUsers.contains(user)) {
+                Notification notification = dynamicMapper.convertor(dto, new Notification());
+                notification.setDate(LocalDate.now());
+                notification.setUser(user);
+                notification.setEvent(event);
+                notificationRepository.save(notification);
+                notifiedUsers.add(user);
+            }
+        }
         return 1;
     }
 

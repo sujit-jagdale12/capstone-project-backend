@@ -41,3 +41,6 @@ Content-Type: application/json
       "tickettype":"earlybird",
       "quantity":5
 }
+
+### Get all reminders for user by userId
+GET http://localhost:8080/attendee/2/events/145/notification

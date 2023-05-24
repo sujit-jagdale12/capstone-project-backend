@@ -7,6 +7,7 @@ import com.ani.ems.dto.EventListDto;
 import com.ani.ems.dto.NewEventDto;
 import com.ani.ems.dto.ReminderDto;
 import com.ani.ems.dto.ScheduleDto;
+import com.ani.ems.dto.SendNotificationDto;
 import com.ani.ems.dto.TicketDto;
 import com.ani.ems.dto.UpdateEventDto;
 
@@ -26,6 +27,8 @@ public interface AdminService {
     Integer createTicket(Long id,TicketDto dto);
     
     Integer sendReminder(Long eventId,ReminderDto dto);
+
+    Integer sendNotification(Long eventId,SendNotificationDto dto);
     
     List<AnalyticsDto> getTicketTypeCounts(Long eventId);
 }

@@ -22,6 +22,7 @@ import com.ani.ems.dto.EventListDto;
 import com.ani.ems.dto.NewEventDto;
 import com.ani.ems.dto.ReminderDto;
 import com.ani.ems.dto.ScheduleDto;
+import com.ani.ems.dto.SendNotificationDto;
 import com.ani.ems.dto.TicketDto;
 import com.ani.ems.dto.UpdateEventDto;
 import com.ani.ems.service.AdminService;
@@ -114,6 +115,16 @@ public class AdminController {
         Integer setTicket = adminService.sendReminder(eventId,ticketDto);
         AppResponse<Integer> response = AppResponse.<Integer>builder()
                 .msg("reminder send to email.")
+                .bd(setTicket)
+                .build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PostMapping(value = "/events/{eventId}/notification", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AppResponse<Integer>> sendNotifications(@Valid @PathVariable Long eventId, @RequestBody SendNotificationDto dto) {
+        Integer setTicket = adminService.sendNotification(eventId,dto);
+        AppResponse<Integer> response = AppResponse.<Integer>builder()
+                .msg("notification send.")
                 .bd(setTicket)
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response);

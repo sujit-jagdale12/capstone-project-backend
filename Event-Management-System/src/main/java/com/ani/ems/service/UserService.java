@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.ani.ems.dto.EventListDto;
+import com.ani.ems.dto.GetNotificationDto;
 import com.ani.ems.dto.NewEventDto;
 import com.ani.ems.dto.OrderDto;
 import com.ani.ems.dto.TicketDto;
@@ -31,4 +32,6 @@ public interface UserService {
     List<EventListDto> getAllUpcomingEvents(LocalDate date);
 
     List<UserReminderDto> getAllReminders(Long eventId);
+
+    List<GetNotificationDto> getNotifications(Long userId,Long eventId);
 }
