@@ -22,6 +22,7 @@ import com.ani.ems.dto.UserReminderDto;
 import com.ani.ems.dto.ViewSpeakerDetails;
 import com.ani.ems.exception.DuplicateEventException;
 import com.ani.ems.exception.InvalidRoleException;
+import com.ani.ems.exception.InvalidTicketException;
 import com.ani.ems.exception.NoEventFoundException;
 import com.ani.ems.exception.PastDateException;
 import com.ani.ems.exception.UserNotFoundException;
@@ -68,9 +69,15 @@ public class UserServiceImpl implements UserService {
         return 1;
     }
 
+    private boolean isValidTicketType(String type) {
+        return type.equals("vip") || type.equals("earlybird") || type.equals("group");
+    }
+
     @Override
     public Integer orderEventTicket(Long userId, Long eventId, OrderDto dto) {
 
+        if (!isValidTicketType(dto.getTickettype()))
+            throw new InvalidTicketException("Invalid ticket type");
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("No User found for " + userId + " ID"));
 

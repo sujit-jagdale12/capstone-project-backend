@@ -97,7 +97,7 @@ public class AdminServiceImpl implements AdminService {
     public Integer createTicket(Long id, TicketDto dto) {
         if (!isValidTicketType(dto.getType()))
             throw new InvalidTicketException("Invalid ticket type");
-
+        
         Event event = adminRepository.findById(id)
                 .orElseThrow(() -> new NoEventFoundException("Event not Found for " + id + " id"));
 

@@ -34,12 +34,12 @@ GET http://localhost:8080/attendee/events/4/reminders
 GET http://localhost:8080/attendee/1/reminders
 
 ### Order ticket user id and ticket type
-POST http://localhost:8080/attendee/2/event/1/order HTTP/1.1 
+POST http://localhost:8080/attendee/2/event/145/order HTTP/1.1 
 Content-Type: application/json
 
 {
-      "tickettype":"earlybird",
-      "quantity":5
+      "tickettype":"group",
+      "quantity":3
 }
 
 ### Get all notifications for user by userId
