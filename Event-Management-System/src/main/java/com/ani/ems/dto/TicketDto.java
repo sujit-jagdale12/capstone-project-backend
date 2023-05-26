@@ -1,6 +1,5 @@
 package com.ani.ems.dto;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -22,7 +21,4 @@ public class TicketDto {
     @NotNull(message = "Ticket type can\'t be null")
     @NotBlank(message = "Must enter ticket type")
     private String type;
-
-    // @NotNull(message = "Enter Ticket Type")
-    // private Integer quantity;
 }

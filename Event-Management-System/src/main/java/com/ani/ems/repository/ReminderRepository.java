@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.ani.ems.domain.Event;
 import com.ani.ems.domain.ReminderUpdate;
 
 public interface ReminderRepository extends JpaRepository<ReminderUpdate,Long>{

@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.ani.ems.dto.EventListDto;
 import com.ani.ems.dto.GetNotificationDto;
-import com.ani.ems.dto.NewEventDto;
 import com.ani.ems.dto.OrderDto;
 import com.ani.ems.dto.TicketDto;
 import com.ani.ems.dto.UserEventDto;
