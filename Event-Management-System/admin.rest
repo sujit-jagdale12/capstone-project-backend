@@ -3,12 +3,12 @@ POST http://localhost:8080/admin/newevent HTTP/1.1
 Content-Type: application/json
 
 { 
-"description":"Birthday",
-"enddate": "2023-05-09",
-"location": "Sambhajinagar",
-"startdate": "2023-05-09",
+"description":"Hackathon",
+"enddate": "2023-06-01",
+"location": "Pune",
+"startdate": "2023-06-01",
 "time": "10:00",
-"title": "Jay"
+"title": "Hackathon"
 }
 
 ### Get All Craeted Events
