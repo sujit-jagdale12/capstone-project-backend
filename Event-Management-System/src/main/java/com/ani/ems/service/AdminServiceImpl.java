@@ -96,15 +96,24 @@ public class AdminServiceImpl implements AdminService {
     public Integer createTicket(Long id, TicketDto dto) {
         if (!isValidTicketType(dto.getType()))
             throw new InvalidTicketException("Invalid ticket type");
-        
+    
         Event event = adminRepository.findById(id)
-                .orElseThrow(() -> new NoEventFoundException("Event not Found for " + id + " id"));
-
-        Ticket ticket = dynamicMapper.convertor(dto, new Ticket());
-        ticket.setEvent(event);
-        ticketRepository.save(ticket);
+                .orElseThrow(() -> new NoEventFoundException("Event not found for ID: " + id));
+    
+        Ticket existingTicket = ticketRepository.findByEventAndType(event, dto.getType());
+    
+        if (existingTicket != null) {
+            existingTicket.setPrice(dto.getPrice());
+            ticketRepository.save(existingTicket);
+        } else {
+            Ticket ticket = dynamicMapper.convertor(dto, new Ticket());
+            ticket.setEvent(event);
+            ticketRepository.save(ticket);
+        }
+    
         return 1;
     }
+    
 
     private boolean isValidTicketType(String type) {
         return type.equals("vip") || type.equals("earlybird") || type.equals("group");

@@ -13,4 +13,5 @@ public interface AdminRepository extends JpaRepository<Event, Long> {
     List<Event> findAllByStartdate(LocalDate date);
 
     List<Event> findAllByEnddateGreaterThanEqual(LocalDate date);
+
 }
